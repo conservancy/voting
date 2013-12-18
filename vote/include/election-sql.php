@@ -14,6 +14,8 @@ $tmp_tokens_table = "election_tmp_tokens";
 $votes_table = "election_votes";
 $members_table = "foundationmembers";
 $results_table = "election_results";
+$committee_email = "elections@gnome.org";
+$committee_name =  "the Membership and Elections Committee";
 
 if (is_readable ("include/localconfig.php")) {
   /* You can use such a file to have a local config for testing purpose. */

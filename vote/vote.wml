@@ -260,9 +260,12 @@ if ($step == 4) {
 if (isset ($handle))
   elec_sql_close ($handle);
 
+global $committee_name;
+global $committee_email;
+
 if (isset ($error) && $error != "") {
   echo "<div class=\"error\">".$error."</div>\n";;
-  echo "<p>If you don't understand the error, you should probably contact the Elections Committee, which can be reached at <a href=\"mailto:elections@sfconservancy.org\">elections@sfconservancy.org</a>.</p>\n";
+  echo "<p>If you don't understand the error, you should probably contact the $committee_name, which can be reached at <a href=\"mailto:$committee_email\">$committee_email</a>.</p>\n";
 }
 
 if ($step != $max_step && $step >= 1) {
