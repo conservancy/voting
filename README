@@ -15,8 +15,5 @@ Setting up an election:
    Password: <MYSQLROOTPW>
    mysql> CREATE USER 'someusername' identified by 'somepassword';
    mysql> CREATE DATABASE somedbname;
-
-   
-
-   
-
+   mysql> quit
+   msyql -u root -p -D somedbname < ..../vote/include/schema.sql
