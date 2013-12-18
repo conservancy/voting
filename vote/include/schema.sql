@@ -59,3 +59,13 @@ CREATE TABLE `election_votes` (
    `preference` int(11) NOT NULL default '0',
    PRIMARY KEY  (`id`));
 
+/* Data in election_tmp_tokens only lives while the election is ongoing, and
+** the PHP code deletes these entries when it records votes.
+*/
+
+DROP TABLE IF EXISTS `election_tmp_tokens`;
+CREATE TABLE `election_tmp_tokens` (
+   `election_id` int(11) NOT NULL default '0',
+   `election_voter_id` int(11) NOT NULL default '0',
+   `tmp_token` varchar(26) NOT NULL default '');
+
