@@ -7,10 +7,28 @@ mysql -h button-back -u anonvoting -p foundation -B -e 'SELECT DATE_FORMAT(first
 
 mysql -h button-back -u anonvoting -p foundation -B -e "SET @start = '2009-01-01', @end = '2009-08-30'; SELECT DATE_FORMAT(DATE_ADD(last_renewed_on, INTERVAL 2 YEAR), '%Y-%m') as date, COUNT(*) as dropped_out FROM foundationmembers WHERE last_renewed_on >= DATE_SUB(@start, INTERVAL 2 YEAR) AND last_renewed_on <= DATE_SUB(@end, INTERVAL 2 YEAR) GROUP BY date;"  | sed 's/\t/","/g;s/^/"/;s/$/"/;s/\n//g' | awk 'FNR>1'
 '''
+
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 import logging
 import pylab
 from pylab import figure, title, bar, xticks, yticks, gca, savefig
 import sys
+
+__author__ = "Tobias Mueller"
+__license__ = "GPLv3+"
+__email__ = "tobiasmue@gnome.org"
 
 plot_title = "New Foundation Members"
 figwidth = 40

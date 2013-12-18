@@ -41,6 +41,20 @@ use DBI;
 # simple VIEW created like this:
 # CREATE OR REPLACE VIEW `foundation`.`electorate` AS SELECT  id, firstname, lastname, email FROM `foundation`.`foundationmembers` WHERE DATE_SUB(CURDATE(), INTERVAL 2 YEAR) <= foundationmembers.last_renewed_on;
 
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
 die "Usage: create-tmp-tokens.pl <election id> <output file for tokens> <output file for mail data>\n" unless $#ARGV == 2;
 
 $election_id = $ARGV[0];

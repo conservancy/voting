@@ -24,6 +24,24 @@ default-character-set=utf8
 The reason to call MySQL client and not use the Python library is 
 mainly, that the MySQL bindings are not installed.
 """
+
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+__author__ = "Tobias Mueller"
+__license__ = "GPLv3+"
+__email__ = "tobiasmue@gnome.org"
+
 import datetime
 try:
     from email.mime.text import MIMEText
