@@ -38,7 +38,7 @@ if ($step == 1) {
 }
 
 if ($election_id == -1) {
-  $error .= "Please choose an election/referendum on this <a href=\"./\">list</a>.<br />\n";
+  $error .= "A menu of elections is not available.  A URL that includes the election id is required.  This should have been given to you when you were asked to vote.<br />\n";
   $step = 0;
 } else {
   $election = elec_get_election ($handle, $election_id);
