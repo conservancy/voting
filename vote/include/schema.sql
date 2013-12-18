@@ -44,5 +44,6 @@ CREATE TABLE `election_votes` (
    `id` int(11) NOT NULL auto_increment,
    `choice_id` int(11) NOT NULL default '0',
    `anon_id` int(11) NOT NULL default '0',
+   `preference` int(11) NOT NULL default '0',
    PRIMARY KEY  (`id`));
 
