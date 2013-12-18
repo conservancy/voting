@@ -48,9 +48,22 @@ INSERT INTO election_choices (election_id, choice)
     (@el_id, 'Candidate 2'),
     (@el_id, 'Candidate 3'),
     (@el_id, 'Candidate 4');
-select @el_id;
+INSERT INTO election_voters (election_id, email_address)
+    VALUES
+    (@el_id, 'voter1@example.org'),
+    (@el_id, 'voter2@example.org'),
+    (@el_id, 'voter3@example.com'),
+    (@el_id, 'voter4@example.net');
 
-That number you see at the end is your election id.  The URL you'll give out
+    INSERT INTO election_tmp_tokens (election_id, election_voter_id, tmp_token)
+        SELECT @el_id, id, SUBSTRING(MD5(RAND()) FROM 1 FOR 24) AS tmp_token
+        FROM election_voters where election_id = @el_id;
+
+     select @el_id;
+
+That number you see at the end is this election's id.  The URL you'll give out
 is thus something like:
 
   http://example.org/vote?election_id=THAT_NUMBER
+
+

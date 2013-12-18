@@ -12,7 +12,7 @@ $choices_table = "election_choices";
 $anon_tokens_table = "election_anon_tokens";
 $tmp_tokens_table = "election_tmp_tokens";
 $votes_table = "election_votes";
-$members_table = "foundationmembers";
+$voters_table = "election_voters";
 $results_table = "election_results";
 $committee_email = "elections@gnome.org";
 $committee_name =  "the Membership and Elections Committee";
@@ -128,7 +128,7 @@ function elec_get_previous_by_date_desc ($handle) {
 
 function elec_verify_email_tmp_token ($handle, $election_id, $email, $tmp_token) {
   global $tmp_tokens_table;
-  global $members_table;
+  global $voters_table;
 
   if ($handle === FALSE)
     return FALSE;
@@ -137,11 +137,11 @@ function elec_verify_email_tmp_token ($handle, $election_id, $email, $tmp_token)
   $escaped_email = mysql_real_escape_string ($email, $handle);
   $escaped_tmp_token = mysql_real_escape_string ($tmp_token, $handle);
 
-  $query = "SELECT COUNT(*) FROM " . $tmp_tokens_table . " AS tt, " . $members_table . " AS mt";
+  $query = "SELECT COUNT(*) FROM " . $tmp_tokens_table . " AS tt, " . $voters_table . " AS mt";
   $query .= " WHERE tt.election_id = '".$escaped_election_id."'";
   $query .= " AND tt.tmp_token = '".$escaped_tmp_token."'";
-  $query .= " AND tt.member_id = mt.id";
-  $query .= " AND mt.email = '".$escaped_email."'";
+  $query .= " AND tt.election_voter_id = mt.id";
+  $query .= " AND mt.email_address = '".$escaped_email."'";
 
   $result = mysql_query ($query, $handle);
   if (!$result)
@@ -309,7 +309,7 @@ function elec_insert_new_vote ($handle, $anon_token_id, $vote, $preference) {
 }
 
 function elec_sql_remove_tmp_token ($handle, $election_id, $email, $tmp_token) {
-  global $members_table;
+  global $voters_table;
   global $tmp_tokens_table;
 
   if ($handle === FALSE)
@@ -321,11 +321,11 @@ function elec_sql_remove_tmp_token ($handle, $election_id, $email, $tmp_token) {
 
   /* In MySQL < 4.1, you'd do "DELETE FROM " . $tmp_tokens_table */
   $query = "DELETE FROM tt";
-  $query .= " USING ". $tmp_tokens_table . " AS tt, " . $members_table . " AS mt";
+  $query .= " USING ". $tmp_tokens_table . " AS tt, " . $voters_table . " AS mt";
   $query .= " WHERE tt.election_id = '".$escaped_election_id."'";
   $query .= " AND tt.tmp_token = '".$escaped_tmp_token."'";
-  $query .= " AND tt.member_id = mt.id";
-  $query .= " AND mt.email = '".$escaped_email."'";
+  $query .= " AND tt.election_voter_id = mt.id";
+  $query .= " AND mt.email_address = '".$escaped_email."'";
 
   $result = mysql_query ($query, $handle);
   if (!$result)

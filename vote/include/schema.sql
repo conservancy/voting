@@ -29,8 +29,20 @@ DROP TABLE IF EXISTS `election_tmp_tokens`;
    `tmp_token` varchar(200) NOT NULL default ''
  ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+/* Not good normal form in election_voters table; there will be duplicates on
+** the email_address, but we think of a election_voter_id as a identity tied a
+** specific election. */
+
+DROP TABLE IF EXISTS `election_voters`;
+CREATE TABLE `election_voters` (
+   `id` int(11) NOT NULL auto_increment,
+   `election_id` int(11) NOT NULL default '0',
+   `email_address` varchar(500) NOT NULL default ''
+   PRIMARY KEY  (`id`));
+
+
 /* 
-from members database we prepare anon tokens
+from each voter we prepare anon tokens
  then insert those anon tokens to database 
  of course before a new election record should be created since its id is needed for anon_tokens
  and election_choices are to be inserted
