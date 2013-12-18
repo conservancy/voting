@@ -1,3 +1,22 @@
-This modules holds the web pages at http://foundation.gnome.org.
+Setting up an election:
 
-Please read the HACKING file before making any changes.
+0. vote/include/election-sql.php expects a secret config file that exists
+   only on the server and is included as PHP code.  It's hard coded currently
+   to: /home/admin/secret/anonvoting currently.
+
+   You at least need to set these variables in it:
+       $mysql_host
+       $mysql
+       $mysql_password
+       $mysql_db
+
+1. When I deploy, I create an account for the election, as the mysql root user:
+   mysql -u root -p
+   Password: <MYSQLROOTPW>
+   mysql> CREATE USER 'someusername' identified by 'somepassword';
+   mysql> CREATE DATABASE somedbname;
+
+   
+
+   
+
