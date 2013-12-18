@@ -20,3 +20,6 @@ Setting up an election:
    mysql> CREATE DATABASE somedbname;
    mysql> quit
    msyql -u root -p -D somedbname < ..../vote/include/schema.sql
+   mysql -u root -p
+   Password: <MYSQLROOTPW>
+   mysql> GRANT SELECT on somedb.elections TO someuser@localhost;
