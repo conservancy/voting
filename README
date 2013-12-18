@@ -4,11 +4,14 @@ Setting up an election:
    only on the server and is included as PHP code.  It's hard coded currently
    to: /home/admin/secret/anonvoting currently.
 
-   You at least need to set these variables in it:
-       $mysql_host
-       $mysql
-       $mysql_password
-       $mysql_db
+   The file should look something like this:
+
+<?php
+       $mysql_host = "localhost";
+       $mysql_user = "someuser";
+       $mysql_password = "somepassword";
+       $mysql_db = "somedb";
+?>
 
 1. When I deploy, I create an account for the election, as the mysql root user:
    mysql -u root -p
