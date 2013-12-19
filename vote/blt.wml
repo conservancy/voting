@@ -128,7 +128,7 @@ global $committee_email;
 
 if (isset ($error) && $error != "") {
   echo "".$error."\n";
-  echo "<p>If you don't understand the error, you should probably contact the $committee_name, which can be reached at <a href=\"mailto:elections@gnome.org\">$committee_email</a>.</p>\n";
+  echo "<p>If you don't understand the error, you should probably contact the $committee_name, which can be reached at <a href=\"mailto:$committee_email\">$committee_email</a>.</p>\n";
 }
 
 if (isset ($handle))
