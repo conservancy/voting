@@ -37,7 +37,7 @@
         GRANT SELECT,DELETE on somedb.election_tmp_tokens TO someuser@localhost;
         GRANT SELECT on somedb.election_voters TO someuser@localhost;
         GRANT SELECT,INSERT on somedb.election_anon_tokens TO someuser@localhost;
-        GRANT INSERT on somedb.election_votes TO someuser@localhost;
+        GRANT SELECT,INSERT on somedb.election_votes TO someuser@localhost;
 
 2. Create an election, with something like this:
         mysql -u root -D somedb -p
