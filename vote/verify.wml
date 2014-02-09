@@ -27,7 +27,7 @@ if (($_POST["verify_token"])) {
 }
 $anon_token_id = elec_verify_voted_token ($handle, $verify_token);
 
-if ($verify_token && $anon_token_id > 0) {
+if ($verify_token && $anon_token_id <= 0) {
   $error .= "The vote verification token provided does not appear in the votes database.  Please check that you entered it correctly.<br />\n";
 }
 if (!$verify_token || $error) {
