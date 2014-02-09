@@ -150,6 +150,24 @@ function elec_verify_email_tmp_token ($handle, $election_id, $email, $tmp_token)
   return (mysql_result ($result, 0, 0) == 1);
 }
 
+function elec_verify_voted_token ($handle, $verify_token) {
+  global $anon_tokens_table;
+
+  if ($handle === FALSE)
+    return FALSE;
+
+  $escaped_verify_token = mysql_real_escape_string ($verify_token, $handle);
+
+  $query = "SELECT id FROM " . $anon_tokens_table;
+  $query .= " WHERE anon_token = '". $escaped_verify_token."'";
+
+  $result = mysql_query ($query, $handle);
+  if (!$result)
+    return 0;
+
+  return mysql_result ($result, 0, 0);
+}
+
 function elec_choices_get ($handle, $election_id) {
   global $choices_table;
 

@@ -8,6 +8,7 @@ page_SCRIPTS = \
         results.php	\
         votes.php	\
 	vote.php	\
+	verify.php	\
 	overview.html	\
 	blt.php
 
