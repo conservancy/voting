@@ -64,7 +64,7 @@
 
     That number you see at the end is this election's id.  The URL you'll
     give out is thus something like:
-      http://example.org/vote?election_id=THAT_NUMBER
+      http://example.org/vote.php?election_id=THAT_NUMBER
 
 Dealing With Problems
 =====================
