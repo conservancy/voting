@@ -2,7 +2,7 @@
 PAGE=$1
 ROOT=$2
 
-sed "s,<head>,<head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /><link rel=\"stylesheet\" type=\"text/css\" href=\"https://www-old.gnome.org/default.css\" /><link rel=\"stylesheet\" type=\"text/css\" href=\"https://foundation-old.gnome.org/foundation.css\" /><link rel=\"icon\" type=\"image/png\" href=\"https://www-old.gnome.org/img/logo/foot-16.png\" />,i;s,<body\([^>]*\)>,<body\1><div id=\"body\">,i;/<\/body>/,//d" $PAGE
+sed "s,<head>,<head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />,i;s,<body\([^>]*\)>,<body\1><div id=\"body\">,i;/<\/body>/,//d" $PAGE
 
 cat <<-FOOT
 </div>
