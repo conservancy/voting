@@ -1,3 +1,39 @@
+# Why This Fork of GNOME Foundation's Voting System?
+
+When I was setting up Conservancy's ability to run elections for its member
+projects, I surveyed various different systems.  There are precious few Free
+Software voting systems.  [Selectricity](http://selectricity.org/) is a good
+option, but upon discussions with the primary author, Benjamin "Mako" Hill,
+he confirmed that it does not currently implement any of the algorithms
+designed for multiple winner elections.  So, if you want a preferential
+voting system with just one winner, Selectricity is probably the best choice.
+
+Meanwhile, [openstv](http://packages.debian.org/unstable/main/openstv) is a
+command-line based system that implements all sorts of voting algorithms, but
+it has no vote-collection system.  (It's also worth noting that openstv has
+since been taken proprietary, but older versions that were released as Free
+Software are still available.)
+
+GNOME Foundation, noticing this, implemented their own little hacked-together
+system to collect votes for their annual Directorship elections, and they
+have the code available in their
+[GNOME Foundation website repository](https://git.gnome.org/browse/foundation-web/).
+This project is a fork of that repository, with *just* the voting stuff
+included.  Most of the GNOME-isms have been removed, although a few remain.
+
+I've also offered patches back to the GNOME Foundation repository by
+cherry-picking changes that are of use to both projects.
+
+Having spent 10-20 hours poking around this PHP code, I must frankly say that
+this isn't a well-designed system, and I don't really recommend it.  However,
+if you need to run a few elections, using this system, by following the
+instructions below, might be your quickest way to get an election up and
+running.  (Note: the instructions herein are loosely based on
+[instructions available on the GNOME Foundation's wiki](https://wiki.gnome.org/MembershipCommittee/ElectionsHowTo),
+although those instructions are somewhat GNOME specific.  I believe these
+instructions below are fully self-contained now, such that you don't have to
+read the GNOME Foundation's instructions as secondary information).
+
 # Setting up an election
 
 0. vote/include/election-sql.php expects a secret config file that exists
