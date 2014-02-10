@@ -31,11 +31,16 @@ As it turns out, there are precious few Free Software voting systems.
 
   * GNOME Foundation hacked together a system in the
     [GNOME Foundation website repository](https://git.gnome.org/browse/foundation-web/)
-    implemented their own little hacked-together system to collect votes for
-    their annual Directorship elections.
+    implemented their own little system to collect votes for
+    their annual Directorship elections, using OpenSTV on the backend to
+    count the votes.
 
-This project is a fork of GNOME's work, with *just* the voting stuff
-included.  Most of the GNOME-isms have been removed, although a few remain.
+Since I needed STV specifically, this seemed like the best option (mainly
+because I didn't know about E-Vote when I started, I'd probably have used
+E-Vote if I'd known about it before I started modifying the GNOME
+Foundation's code).  Thus, this project is a fork of GNOME's work, with
+*just* the voting stuff included.  Most of the GNOME-isms have been removed,
+although a few remain.
 
 I've also offered patches back to the GNOME Foundation repository by
 cherry-picking changes that are of use to both projects.
