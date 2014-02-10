@@ -23,6 +23,17 @@ DROP TABLE IF EXISTS `election_choices`;
    PRIMARY KEY  (`id`)
  ) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8 ;
 
+/* The election_results table stores the HTML output from the openstv command.
+** It must be inserted manually at the end of the election.
+*/
+
+DROP TABLE IF EXISTS `election_results`;
+ CREATE TABLE `election_results` (
+   `election_id` int(11) NOT NULL default '0',
+   `result` text
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 /* Data in election_tmp_tokens only lives while the election is ongoing, and
 ** the PHP code deletes these entries when it records votes.
 */
