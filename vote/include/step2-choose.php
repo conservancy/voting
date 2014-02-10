@@ -12,7 +12,7 @@ function step2_do () {
   $result .= "An <a href=\"http://en.wikipedia.org/wiki/Single_transferable_vote\">STV algorithm</a> will be used to count your votes.</p>";
 
   $result .= "<p>Clicking on a candidate in the <em>Candidates</em> box adds it in order to the Prefences box.  ";
-  $result .= "If you want to change a selection you've already made, you can click on the candidate in the <em>Preferences</em> box, and that candidate will move back to the <em>Candidates</em> box.  (Note: you may need to scroll down to see the <em>Preferences</em> box).</p>";
+  $result .= "If you want to change a selection you've already made, you can click on the candidate in the <em>Preferences</em> box, and that candidate will move back to the <em>Candidates</em> box.  (Note: you may need to scroll to the right to see the <em>Preferences</em> box).</p>";
   $result .= "<p>Once you have a <em>Preferences</em> box that you like, use the button at the bottom to continue to the next step.  You can review and confirm";
   $result .= " your ballot on the next page.</p>";
 
