@@ -1,12 +1,15 @@
 # Why This Fork of GNOME Foundation's Voting System?
 
 When I was setting up Conservancy's ability to run elections for its member
-projects, I surveyed various different systems.  There are precious few Free
-Software voting systems.  [Selectricity](http://selectricity.org/) is a good
-option, but upon discussions with the primary author, Benjamin "Mako" Hill,
-he confirmed that it does not currently implement any of the algorithms
-designed for multiple winner elections.  So, if you want a preferential
-voting system with just one winner, Selectricity is probably the best choice.
+projects, I surveyed various different systems.  I was mostly looking for
+something that implemented STV algorithms.
+
+As it turns out, there are precious few Free Software voting systems.
+[Selectricity](http://selectricity.org/) is a good option, but upon
+discussions with the primary author, Benjamin "Mako" Hill, he confirmed that
+it does not currently implement any of the algorithms designed for multiple
+winner elections.  So, if you want a preferential voting system with just one
+winner, Selectricity is probably the best choice.
 
 Now, if you're looking specifically for
 [range voting](http://en.wikipedia.org/wiki/Range_voting), then
