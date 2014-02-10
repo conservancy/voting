@@ -8,11 +8,17 @@ he confirmed that it does not currently implement any of the algorithms
 designed for multiple winner elections.  So, if you want a preferential
 voting system with just one winner, Selectricity is probably the best choice.
 
-Meanwhile, [openstv](http://packages.debian.org/unstable/main/openstv) is a
-command-line based system that implements all sorts of voting algorithms, but
-it has no vote-collection system.  (It's also worth noting that openstv has
-since been taken proprietary, but older versions that were released as Free
-Software are still available.)
+Now, if you're looking specifically for
+[range voting](http://en.wikipedia.org/wiki/Range_voting), then
+[Fedora's election system](https://github.com/fedora-infra/elections)
+probably what you want.
+
+Meanwhile, for various STV algorithms,
+[PpenSTV](http://packages.debian.org/unstable/main/openstv) is your best
+choice.  OpenSTV is a command-line based system that implements all sorts of
+voting algorithms, but it has no vote-collection system.  (It's also worth
+noting that openstv has since been taken proprietary, but older versions that
+were released as Free Software are still available.)
 
 GNOME Foundation, noticing this, implemented their own little hacked-together
 system to collect votes for their annual Directorship elections, and they
