@@ -42,7 +42,7 @@ DROP TABLE IF EXISTS `election_voters`;
 CREATE TABLE `election_voters` (
    `id` int(11) NOT NULL auto_increment,
    `election_id` int(11) NOT NULL default '0',
-   `email_address` varchar(500) NOT NULL default ''
+   `email_address` varchar(500) NOT NULL default '',
    PRIMARY KEY  (`id`));
 
 
