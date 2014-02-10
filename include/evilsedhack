@@ -9,6 +9,7 @@ cat <<-FOOT
 
 <div id="hdr">
 	<p class="none"></p>
+        <hr/>
 	<div id="hdrNav">
 		<a href="https://www.sfconservancy.org/">Conservancy's website</a> &middot;
 		<a href="mailto:elections@sfconservancy.org">Email problems to: &lt;elections@sfconservancy.org&gt;</a> &middot;
