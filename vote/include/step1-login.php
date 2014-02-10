@@ -6,7 +6,7 @@ function step1_do () {
 
   $result = "<h2>Step 1/4 - Login</h2>\n";
 
-  $result .= "<p>Please login using the informations that were sent to you by e-mail.</p>\n";
+  $result .= "<p>Please login using the informations that were sent to you by e-mail.  (Note: be sure that no whitespace is placed at the start nor end of either input box below.)</p>\n";
 
   $result .= "<div class=\"votedata\">\n";
   $result .= "<p><label for=\"email\">E-mail: </label><input type=\"text\" name=\"email\" value=\"".htmlspecialchars ($email)."\" /></p>\n";
