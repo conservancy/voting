@@ -29,7 +29,7 @@ DROP TABLE IF EXISTS `election_choices`;
 
 DROP TABLE IF EXISTS `election_results`;
  CREATE TABLE `election_results` (
-   `election_id` int(11) NOT NULL default '0',
+   `election_id` int(11) NOT NULL UNIQUE default '0',
    `result` text
  ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
