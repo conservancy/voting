@@ -84,7 +84,7 @@ read the GNOME Foundation's instructions as secondary information).
         mysql -u root -D somedb -p
 
         SET NAMES 'utf8';
-        INSERT t INTO elections (type, name, voting_start, voting_end, choices_nb,   question) VALUES ("elections", "2011 Spring Election", "2011-05-29 00:00:00", "2011-06-12 23:59:59", "7", "Which candidates would you like to see Elected?");
+        INSERT INTO elections (type, name, voting_start, voting_end, choices_nb,   question) VALUES ("elections", "2011 Spring Election", "2011-05-29 00:00:00", "2011-06-12 23:59:59", "7", "Which candidates would you like to see Elected?");
         set @el_id = @@IDENTITY;
         INSERT INTO election_choices (election_id, choice) VALUES
                 (@el_id, 'Candidate 1'),
