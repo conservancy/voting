@@ -1,8 +1,9 @@
 # Why This Fork of GNOME Foundation's Voting System?
 
 When I was setting up Conservancy's ability to run elections for its member
-projects, I surveyed various different systems.  I was mostly looking for
-something that implemented STV algorithm and ballot collection for the same.
+projects, I surveyed various Open Source and Free Software systems systems to
+handle online voting and elections.  I was mostly looking for something that
+implemented STV algorithm and ballot collection for the same.
 
 As it turns out, there are precious few Free Software voting systems.
 
