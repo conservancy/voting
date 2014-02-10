@@ -11,7 +11,9 @@ cat <<-FOOT
 	<p class="none"></p>
 	<div id="hdrNav">
 		<a href="https://www.sfconservancy.org/">Conservancy's website</a> &middot;
-		<a href="mailto:elections@sfconservancy.org">Email problems to: &lt;elections@sfconservancy.org&gt;</a>
+		<a href="mailto:elections@sfconservancy.org">Email problems to: &lt;elections@sfconservancy.org&gt;</a> &middot;
+		<a href="https://gitorious.org/conservancy/voting/">Source code for this site</a>
+
 	</div>
 </div>
 
