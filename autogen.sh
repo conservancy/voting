@@ -23,7 +23,7 @@ DIE=0
 (automake --version) < /dev/null > /dev/null 2>&1 ||{
 	echo
 	echo "You must have at minimum automake version 1.4 installed"
-	echo "to compile foundation-web. Download the appropriate package"
+	echo "to compile vote. Download the appropriate package"
 	echo "for your distribution, or get the source tarball at"
 	echo "ftp://ftp.cygnus.com/pub/home/tromey/automake-1.4.tar.gz"
 	DIE=1
@@ -34,8 +34,8 @@ if test "$DIE" -eq 1; then
 	exit 1
 fi
 
-(test -d foundation.gnome.org) || {
-	echo "You must run this script in the top-level foundation-web directory"
+(test -d vote) || {
+	echo "You must run this script in the top-level vote system directory"
 	exit 1
 }
 
@@ -54,4 +54,4 @@ echo "Running $srcdir/configure --enable-maintainer-mode" "$@"
 $srcdir/configure --enable-maintainer-mode "$@" || exit $?
 
 echo 
-echo "Now type 'make' to compile foundation-web."
+echo "Now type 'make' to compile vote."

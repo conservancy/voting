@@ -1,3 +1,120 @@
-This modules holds the web pages at http://foundation.gnome.org.
+# Why This Fork of GNOME Foundation's Voting System?
 
-Please read the HACKING file before making any changes.
+When I was setting up Conservancy's ability to run elections for its member
+projects, I surveyed various different systems.  There are precious few Free
+Software voting systems.  [Selectricity](http://selectricity.org/) is a good
+option, but upon discussions with the primary author, Benjamin "Mako" Hill,
+he confirmed that it does not currently implement any of the algorithms
+designed for multiple winner elections.  So, if you want a preferential
+voting system with just one winner, Selectricity is probably the best choice.
+
+Meanwhile, [openstv](http://packages.debian.org/unstable/main/openstv) is a
+command-line based system that implements all sorts of voting algorithms, but
+it has no vote-collection system.  (It's also worth noting that openstv has
+since been taken proprietary, but older versions that were released as Free
+Software are still available.)
+
+GNOME Foundation, noticing this, implemented their own little hacked-together
+system to collect votes for their annual Directorship elections, and they
+have the code available in their
+[GNOME Foundation website repository](https://git.gnome.org/browse/foundation-web/).
+This project is a fork of that repository, with *just* the voting stuff
+included.  Most of the GNOME-isms have been removed, although a few remain.
+
+I've also offered patches back to the GNOME Foundation repository by
+cherry-picking changes that are of use to both projects.
+
+Having spent 10-20 hours poking around this PHP code, I must frankly say that
+this isn't a well-designed system, and I don't really recommend it.  However,
+if you need to run a few elections, using this system, by following the
+instructions below, might be your quickest way to get an election up and
+running.  (Note: the instructions herein are loosely based on
+[instructions available on the GNOME Foundation's wiki](https://wiki.gnome.org/MembershipCommittee/ElectionsHowTo),
+although those instructions are somewhat GNOME specific.  I believe these
+instructions below are fully self-contained now, such that you don't have to
+read the GNOME Foundation's instructions as secondary information).
+
+# Setting up an election
+
+0. vote/include/election-sql.php expects a secret config file that exists
+   only on the server and is included as PHP code.  It's hard coded currently
+   to: /home/admin/secret/anonvoting currently.
+
+   The file should look something like this:
+
+         <?php
+             $mysql_host = "localhost";
+             $mysql_user = "someuser";
+             $mysql_password = "somepassword";
+             $mysql_db = "somedb";
+             $committee_name = "The Vote Masters";
+             $committee_email = "elections@example.org";
+          ?>
+
+1. When I deploy, I create an account for the election, as the mysql root user:
+
+        mysql -u root -p
+        Password: <MYSQLROOTPW>
+
+   Then Run these commands at the mysql> prompt:
+
+        CREATE USER 'someusername' identified by 'somepassword';
+        CREATE DATABASE somedbname;
+
+   Then, exit, and at the main command line run:
+
+        msyql -u root -p -D somedbname < ..../vote/include/schema.sql
+
+   Then run this again:
+
+        mysql -u root -p
+        Password: <MYSQLROOTPW>
+
+   and at the mysql command line, run these grant commands:
+
+        GRANT SELECT on somedb.elections TO someuser@localhost;
+        GRANT SELECT on somedb.election_choices TO someuser@localhost;
+        GRANT SELECT,DELETE on somedb.election_tmp_tokens TO someuser@localhost;
+        GRANT SELECT on somedb.election_voters TO someuser@localhost;
+        GRANT SELECT,INSERT on somedb.election_anon_tokens TO someuser@localhost;
+        GRANT SELECT,INSERT on somedb.election_votes TO someuser@localhost;
+
+2. Create an election, with something like this:
+
+        mysql -u root -D somedb -p
+
+        SET NAMES 'utf8';
+        INSERT t INTO elections (type, name, voting_start, voting_end, choices_nb,   question) VALUES ("elections", "2011 Spring Election", "2011-05-29 00:00:00", "2011-06-12 23:59:59", "7", "Which candidates would you like to see Elected?");
+        set @el_id = @@IDENTITY;
+        INSERT INTO election_choices (election_id, choice) VALUES
+                (@el_id, 'Candidate 1'),
+                (@el_id, 'Candidate 2'),
+                (@el_id, 'Candidate 3'),
+                (@el_id, 'Candidate 4');
+        INSERT INTO election_voters (election_id, email_address) VALUES
+                (@el_id, 'voter1@example.org'),
+                (@el_id, 'voter2@example.org'),
+                (@el_id, 'voter3@example.com'),
+                (@el_id, 'voter4@example.net');
+
+        INSERT INTO election_tmp_tokens (election_id, election_voter_id, tmp_token)
+           SELECT @el_id, id, SUBSTRING(MD5(RAND()) FROM 1 FOR 24) AS tmp_token
+           FROM election_voters where election_id = @el_id;
+
+        select @el_id;
+
+    That number you see at the end is this election's id.  The URL you'll
+    give out is thus something like:
+      http://example.org/vote.php?election_id=THAT_NUMBER
+
+Dealing With Problems
+=====================
+
+## Missing Ballots
+
+Voters might complain that they haven't received their token.  Likely, it
+either went missing or the email address was wrongly noted in the
+database. In any case, you need to find the ID of the voter With the ID do
+something like:
+    SELECT * FROM election_tmp_tokens WHERE election_id = 17 AND election_voter_id  = $ID;
+

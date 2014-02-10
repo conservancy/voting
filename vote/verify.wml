@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="vote.css" />
+    <title>Vote Verification</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="vote.css" />
+  </head>
+
+  <body>
+  <h1>Vote Verification</h1>
+<?php
+require_once ("include/election-sql.php");
+
+$error = "";
+
+$handle = elec_sql_open ();
+if ($handle === FALSE) {
+  $error .= "Can not open the database.<br />\n";
+  $step = 0;
+}
+
+$verify_token = "";
+
+if (($_POST["verify_token"])) {
+  $verify_token = $_POST["verify_token"];
+}
+$anon_token_id = elec_verify_voted_token ($handle, $verify_token);
+
+if ($verify_token && $anon_token_id <= 0) {
+  $error .= "The vote verification token provided does not appear in the votes database.  Please check that you entered it correctly.<br />\n";
+}
+if (!$verify_token || $error) {
+  echo "<h2>Verify your ballot</h2>\n";
+  echo "<p>Please enter your ballot verification token.</p>\n";
+  echo "<form action=\"".htmlspecialchars($_SERVER['PHP_SELF'], ENT_QUOTES)."\" method=\"post\"";
+  echo "<div class=\"votedata\">\n";
+  echo "<p><label for=\"verify_token\">Verification Token: </label><input type=\"text\" name=\"verify_token\" value=\"".htmlspecialchars ($verify_token)."\" /></p>\n";
+  echo "</div>\n";
+  echo "  <input type=\"submit\" value=\"Submit\" />\n";
+  echo "</form>\n";
+} else {
+    $votes = elec_get_votes_for_anon_token ($handle, $anon_token_id);
+    $choices = elec_choices_get_by_anon_token_id($handle, $anon_token_id);
+    if ($choices === FALSE) {
+      $error .= "The ".htmlspecialchars(elec_election_get_type ($election))." is not properly set up.\n";
+    }
+    $choices_name = array ();
+    foreach ($choices as $choice) {
+      $choices_name[$choice["id"]] = $choice["choice"];
+    }
+    if ($votes === FALSE) {
+      echo "Can not access votes<br />for this anonymous token.";
+      $error .= "Can not get votes for anonymous token ".htmlspecialchars($anon_token["anon_token"])."<br />\n";
+    } else if (count ($votes) == 0) {
+      echo "This voter chose to vote for<br />none of the possible choices.";
+    } else {
+      echo "Vote token, $verify_token , recorded votes in the following order:";
+      echo "<ol>";
+      foreach ($votes as $vote) {
+        if (array_key_exists ($vote["choice_id"], $choices_name))
+          echo "<li><em>".htmlspecialchars($votes["preference"])." ".htmlspecialchars($choices_name[$vote["choice_id"]])."</em></li>\n";
+        else {
+          echo "<li><em>Unknown value (".htmlspecialchars($vote["choice_id"]).")</em></li>\n";
+          $error .= "There was an unkown vote for anonymous token ".htmlspecialchars($anon_token["anon_token"]).": ".htmlspecialchars($vote["choice_id"])."<br />\n";
+        }
+      }
+      echo "</ol>";
+    }
+
+    echo "</td>\n";
+
+    echo "</tr>\n";
+  echo "</table>\n";
+}
+global $committee_name;
+global $committee_email;
+
+if (isset ($error) && $error != "") {
+  echo "<div class=\"error\">".$error."</div>\n";;
+  echo "<p>If you don't understand the error, you should probably contact the $committee_name, which can be reached at <a href=\"mailto:$committee_email\">$committee_email</a>.</p>\n";
+}
+
+if (isset ($handle))
+  elec_sql_close ($handle);
+
+?>

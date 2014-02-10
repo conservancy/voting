@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+  <head>
+    <link rel="stylesheet" type="text/css" href="vote.css" />
+    <title>Votes</title>
+    <meta name="cvsdate" content="$Date$" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+
+  <body>
+<?php
+require_once ("include/election-sql.php");
+
+$display = TRUE;
+$error = "";
+
+$handle = elec_sql_open ();
+if ($handle === FALSE) {
+  $error .= "Can not open the database.<br />\n";
+  $display = FALSE;
+}
+
+if ($display && isset ($_GET["election_id"]) && is_numeric ($_GET["election_id"]))
+  $election_id = $_GET["election_id"];
+else {
+  $election_id = -1;
+  $error .= "Please choose an election/referendum on this <a href=\"./\">list</a>.<br />\n";
+  $display = FALSE;
+}
+
+if ($display && $election_id >= 0) {
+  $election = elec_get_election ($handle, $election_id);
+  if ($election === FALSE) {
+    $error .= "The specified election/referendum does not exist.<br />\n";
+    $display = FALSE;
+  } else if (!elec_election_has_ended ($election)) {
+    $error .= "The voting period for the specified ".htmlspecialchars(elec_election_get_type ($election))." starts on ".htmlspecialchars($election["voting_start"])." (UTC) and ends on ".htmlspecialchars($election["voting_end"])." (UTC). It is not possible to see the results now.<br />\n";
+    $display = FALSE;
+  }
+  else
+  {
+    $results = elec_get_results($handle, $election_id);
+  }
+}
+
+if (isset ($election) && $election !== FALSE) {
+  if ($results !== FALSE)
+  {
+    echo "<h1>Results for the ".htmlspecialchars($election["name"])."</h1>\n";
+  } else {
+    $error .= "The voting period for the specified ".htmlspecialchars(elec_election_get_type ($election))." has closed, but the results of the election have not yet been calculated. It is not possible to see the results now.<br />\n";
+    echo "<p>In the meantime, you can look at the <a href=\"votes.php?election_id=".rawurlencode($election_id)."\">list of all votes</a> and verify that your vote is correct.</p>\n";
+    $display = FALSE;
+  }
+}
+
+if ($display) {
+  echo "<hr/>";
+  echo $results["result"]; // We want to pull Markup from the database and display it here.
+  echo "<hr/>";
+   
+  echo "<p>Please look at the <a href=\"votes.php?election_id=".rawurlencode($election_id)."\">list of all votes</a> and verify that your vote is correct.</p>\n";
+}
+
+global $committee_name;
+global $committee_email;
+
+if (isset ($error) && $error != "") {
+  echo "<div class=\"error\">".$error."</div>\n";;
+  echo "<p>If you don't understand the error, you should probably contact the $committee_name, which can be reached at <a href=\"mailto:$committee_email\">$committee_email</a>.</p>\n";
+}
+
+if (isset ($handle))
+  elec_sql_close ($handle);
+
+?>

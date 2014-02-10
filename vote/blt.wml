@@ -1,0 +1,140 @@
+<?php
+require_once ("include/election-sql.php");
+
+/* .blt file format, used by the electoral reform society.
+ * Format is as follows:
+ * Line 1: N candidates, M seats
+4 2
+ * Following lines (one per ballot): Each vote has a weight of 1, followed by 
+ * the candidates in order of preference, terminated by 0. Candidates are 
+ * specified in order after the ballots, starting with candidate 1.
+1 p1 p2 p3 p4 ... 0
+...
+ * End of ballots marker:
+0
+ * List of candidates
+"Dave Neary"
+"Niels Breet"
+"Henri Bergius"
+"Andre Klapper"
+ * Election title
+"Favourite maemo.org staff member 2009"
+ */
+
+// We'll be outputting a test file
+header('Content-type: text/plain');
+
+// It will be called election.blt
+header('Content-Disposition: attachment; filename="election.blt"');
+
+$display = TRUE;
+$error = "";
+
+$handle = elec_sql_open ();
+if ($handle === FALSE) {
+  $error .= "Can not open the database.\n";
+  $display = FALSE;
+}
+
+if ($display && isset ($_GET["election_id"]) && is_numeric ($_GET["election_id"]))
+  $election_id = $_GET["election_id"];
+else {
+  $election_id = -1;
+  $error .= "No election specified.\n";
+  $display = FALSE;
+}
+
+if ($display && $election_id >= 0) {
+  $election = elec_get_election ($handle, $election_id);
+  if ($election === FALSE) {
+    $error .= "The specified election/referendum does not exist.\n";
+    $display = FALSE;
+  } else if (!elec_election_has_ended ($election)) {
+    $error .= "The voting period for the specified ".htmlspecialchars(elec_election_get_type ($election))." starts on ".htmlspecialchars($election["voting_start"])." (UTC) and ends on ".htmlspecialchars($election["voting_end"])." (UTC). It is not possible to see the results now.\n";
+    $display = FALSE;
+  }
+}
+
+/* Get election, choices, anon tokens & votes */
+if ($display) {
+  $choices = elec_choices_get ($handle, $election_id);
+  if ($choices === FALSE) {
+    $error .= "The ".htmlspecialchars(elec_election_get_type ($election))." is not properly set up.\n";
+    $display = FALSE;
+  }
+}
+
+if (isset ($election) && $election !== FALSE) {
+  // Header: # candidates, # seats
+  echo count($choices)." ".$election["choices_nb"]."\n";
+}
+
+
+if ($display) {
+  $anon_tokens = elec_get_anon_tokens_for_election ($handle, $election_id);
+  if ($anon_tokens === FALSE) {
+    $error .= "Can not get the anonymous tokens for this ".htmlspecialchars(elec_election_get_type ($election)).".\n";
+    $display = FALSE;
+  }
+}
+
+
+if ($display) {
+  $choices_name = array ();
+  $choices_pos = array ();
+  $index=1;
+  // Record names and positions of candidates
+  foreach ($choices as $choice) {
+    $choices_pos[$choice["id"]] = $index++;
+  }
+
+  // One line per ballot: weight, preferences, 0 to end. 
+  foreach ($anon_tokens as $anon_token) {
+    $votes = elec_get_votes_for_anon_token ($handle, $anon_token["id"]);
+    if ($votes === FALSE) {
+      echo "1 999 0\n";
+      $error .= "Can not get votes for anonymous token ".htmlspecialchars($anon_token["anon_token"])."\n";
+    } else if (count ($votes) == 0) {
+      echo "1 0\n";
+    } else {
+      echo "1 ";
+      foreach ($votes as $vote) {
+        if (array_key_exists ($vote["choice_id"], $choices_pos))
+          echo $choices_pos[$vote["choice_id"]]." ";
+        else {
+          echo "999 ";
+          $error .= "There was an unkown vote for anonymous token ".htmlspecialchars($anon_token["anon_token"]).": ".htmlspecialchars($vote["choice_id"])."\n";
+        }
+      }
+      echo "0\n";
+    }
+  }
+
+  // end of ballots marker 
+  echo "0\n";
+
+  // Names of candidates
+  foreach ($choices as $choice) {
+    echo "\"".$choice["choice"]."\"\n";
+  }
+
+  // Title of election
+  echo "\"".$election["name"]."\"\n";
+
+}
+
+global $committee_name;
+global $committee_email;
+
+if (isset ($error) && $error != "") {
+  echo "".$error."\n";
+  echo "<p>If you don't understand the error, you should probably contact the $committee_name, which can be reached at <a href=\"mailto:$committee_email\">$committee_email</a>.</p>\n";
+}
+
+if (isset ($handle))
+  elec_sql_close ($handle);
+
+// don't output the HTML that wml adds below
+exit;
+
+?>

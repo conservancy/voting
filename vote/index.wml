@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+  <head>
+    <link rel="stylesheet" type="text/css" href="vote.css" />
+    <title>Elections and Referenda For Conservancy Projects</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+
+  <body>
+<h1>Conservancy Voting</h1>
+    <p>
+      Conservancy runs various elections on behalf of its member projects.
+      If you are expecting an election to be run on behalf of your project,
+      you should have been given a URL that included a specific vote ID, and
+      you should use that to find the election.  If you have questions,
+      please
+      contact  <a href="mailto:elections@sfconservancy.org">&lt;elections@sfconservancy.org&gt;</a>.
+</p>
+<!-- Do not close the body or html tag because we still add stuff to the footer -->

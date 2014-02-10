@@ -8,32 +8,12 @@ cat <<-FOOT
 </div>
 
 <div id="hdr">
-	<div id="logo"><a href="$ROOT/"><img src="https://www.gnome.org/img/spacer" alt="Home" /></a></div>
-	<div id="banner"><img src="https://www.gnome.org/img/spacer" alt="" /></div>
 	<p class="none"></p>
 	<div id="hdrNav">
-		<a href="https://www.gnome.org/about/">About GNOME</a> &middot;
-		<a href="https://www.gnome.org/start/stable/">Download</a> &middot;
-		<!--<a href="http://www.gnome.org/contribute/"><i>Get Involved!</i></a> &middot;-->
-		<a href="https://www.gnome.org/">Users</a> &middot;
-		<a href="https://help.gnome.org/devel">Developers</a> &middot;
-		<a href="https://foundation.gnome.org/"><b>Foundation</b></a> &middot;
-		<a href="https://www.gnome.org/contact/">Contact</a>
+		<a href="https://www.sfconservancy.org/">Conservancy's website</a> &middot;
+		<a href="mailto:elections@sfconservancy.org">Email problems to: &lt;elections@sfconservancy.org&gt;</a>
 	</div>
 </div>
-
-<!-- Piwik -->
-<script type="text/javascript">
-var pkBaseURL = (("https:" == document.location.protocol) ? "https://webstats.gnome.org/" : "http://webstats.gnome.org/");
-document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
-</script><script type="text/javascript">
-try {
-var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 5);
-piwikTracker.trackPageView();
-piwikTracker.enableLinkTracking();
-} catch( err ) {}
-</script><noscript><p><img src="https://webstats.gnome.org/piwik.php?idsite=5" style="border:0" alt=""/></p></noscript>
-<!-- End Piwik Tag -->
 
 </body>
 
