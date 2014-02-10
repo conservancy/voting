@@ -8,7 +8,7 @@
   </head>
 
   <body>
-
+  <h1>Vote Verification</h1>
 <?php
 require_once ("include/election-sql.php");
 
@@ -49,15 +49,13 @@ if (!$verify_token || $error) {
     foreach ($choices as $choice) {
       $choices_name[$choice["id"]] = $choice["choice"];
     }
-    echo "<tr class=\"".$class."\">\n";
-    echo "<td><span class=\"token\">".htmlspecialchars($verify_token)."</span></td>\n";
-    echo "<td>";
     if ($votes === FALSE) {
       echo "Can not access votes<br />for this anonymous token.";
       $error .= "Can not get votes for anonymous token ".htmlspecialchars($anon_token["anon_token"])."<br />\n";
     } else if (count ($votes) == 0) {
       echo "This voter chose to vote for<br />none of the possible choices.";
     } else {
+      echo "Vote token, $verify_token , recorded votes in the following order:";
       echo "<ol>";
       foreach ($votes as $vote) {
         if (array_key_exists ($vote["choice_id"], $choices_name))
