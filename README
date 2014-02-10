@@ -52,17 +52,21 @@ read the GNOME Foundation's instructions as secondary information).
           ?>
 
 1. When I deploy, I create an account for the election, as the mysql root user:
-   mysql -u root -p
-   Password: <MYSQLROOTPW>
+
+        mysql -u root -p
+        Password: <MYSQLROOTPW>
 
    Then Run these commands at the mysql> prompt:
+
         CREATE USER 'someusername' identified by 'somepassword';
         CREATE DATABASE somedbname;
 
    Then, exit, and at the main command line run:
-         msyql -u root -p -D somedbname < ..../vote/include/schema.sql
+
+        msyql -u root -p -D somedbname < ..../vote/include/schema.sql
 
    Then run this again:
+
         mysql -u root -p
         Password: <MYSQLROOTPW>
 
@@ -76,6 +80,7 @@ read the GNOME Foundation's instructions as secondary information).
         GRANT SELECT,INSERT on somedb.election_votes TO someuser@localhost;
 
 2. Create an election, with something like this:
+
         mysql -u root -D somedb -p
 
         SET NAMES 'utf8';
