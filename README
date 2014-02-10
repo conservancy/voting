@@ -116,6 +116,58 @@ read the GNOME Foundation's instructions as secondary information).
     give out is thus something like:
       http://example.org/vote.php?election_id=THAT_NUMBER
 
+3. Create an email template, email-template.txt, in this format:
+
+        "Person" <person@example.org>
+        A subject line describing the vote
+
+        Dear <member>,
+
+        Please visit: http://example.org/vote.php?election_id=THAT_NUMBER
+
+        And use this information to complete the voting:
+
+           E-mail:
+           Vote token:
+
+        Once you've voted, you'll be given a confirmation token.  You can
+        verify your own vote at:
+            https://example.org/verify.php
+
+        After the election, you can see the results at:
+           https://example.org/results.php?election_id=THAT_NUMBER
+
+4. Prepare a list of the temp tokens sent to everyone, perhaps with this command:
+
+        SELECT a.email_address,b.tmp_token
+         FROM election_voters a, election_tmp_tokens b
+        WHERE a.election_id = @el_id
+          AND a.election_id = b.election_id
+          AND b.election_voter_id = a.id;
+
+   You'll need to then convert that output into a file called "voters.txt",
+   with each line in a format of:
+
+         Full Name;email_address;token
+
+5. Then, run this script:
+
+         $ ./mail-instructions.py voters.txt email-template.txt
+ 
+   on some server that can use SMTP from localhost.
+
+   Note that the script will replace <member>, E-mail, and Vote token:
+   strings from (3) above with the appropriate values from the voters.txt
+   file.
+
+6. When the voting is over, download the election.blt file via this URL:
+
+        https://example.org/blt.php?election_id=THAT_NUMBER
+
+   then run this command:
+
+        $ openstv-run-election -r HtmlReport ScottishSTV election.blt > output.html
+
 Dealing With Problems
 =====================
 
