@@ -18,17 +18,12 @@ function step2_do () {
 
   $result .= "<p><noscript>Note: This page requires Javascript</noscript></p>";
 
-  $result .= "<div class=\"canddata\">\n";
-  $result .= "<h3>Candidates</h3>\n";
-  $result .= "<ul id=\"candidates\">\n";
-  $result .= "</ul>\n";
-  $result .= "</div>";
-  $result .= "<div class=\"prefdata\">";
-  $result .= "<h3>Preferences</h3>\n";
-  $result .= "<ol id=\"preferences\">\n";
-  $result .= "</ol>\n";
-
-  $result .= "</div>\n";
+  $result .= '<table>';
+  $result .= '  <tr>';
+  $result .= '    <td class="canddata"><h3>Candidates</h3><ul id="candidates"></ul></td>';
+  $result .= '    <td class="prefdata"><h3>Preferences</h3><ol id="preferences"></ol></td>';
+  $result .= '  </tr>';
+  $result .= '</table>';
 
   return $result;
 }

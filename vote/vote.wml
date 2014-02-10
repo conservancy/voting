@@ -82,10 +82,22 @@ if ($step==2)
 {
 ?>
     <style>
-.canddata, .prefdata{
-width:30%;
-height: <?php echo 1.8*count($choices); ?>em;
-background: #E0FFD0;
+table {
+  width: 100%;
+  table-layout: fixed;
+  border: 4px solid #FFF;
+  border-collapse: collapse;
+}
+td.canddata, td.prefdata {
+  border: 4px solid #FFF;
+  width: 50%;
+  height: 27em;
+  background: #E0FFD0;
+  padding: 0.5em;
+  vertical-align: top;
+}
+.canddata h3, .prefdata h3 {
+  margin-top: 0;
 }
 
 
