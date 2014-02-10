@@ -99,6 +99,7 @@ read the GNOME Foundation's instructions as secondary information).
         GRANT SELECT on somedb.election_voters TO someuser@localhost;
         GRANT SELECT,INSERT on somedb.election_anon_tokens TO someuser@localhost;
         GRANT SELECT,INSERT on somedb.election_votes TO someuser@localhost;
+        GRANT SELECT,INSERT on somedb.election_results TO someuser@localhost;
 
 2. Create an election, with something like this:
 
@@ -178,8 +179,17 @@ read the GNOME Foundation's instructions as secondary information).
 
    then run this command:
 
-        $ openstv-run-election -r HtmlReport ScottishSTV election.blt > output.html
+        $ openstv-run-election -r HtmlReport ScottishSTV election.blt > results.html
 
+7. The results HTML has to be in the database, as the PHP code expects it.
+   Here's some SQL commands that will get it into the right table:
+
+        set @result_text = load_file('/path/to/results.html');
+        REPLACE INTO election_results (election_id, result) VALUES (@el_id, @result_text);
+
+   Note that I discovered that /path/to/results.html has to be world-readable
+   for this to work, even if you mysql process has read permission.  I didn't
+   have time to figure out why or if that analysis is correct.
 Dealing With Problems
 =====================
 
