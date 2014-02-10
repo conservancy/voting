@@ -195,6 +195,34 @@ function elec_choices_get ($handle, $election_id) {
   return $retval;
 }
 
+function elec_choices_get_by_anon_token_id ($handle, $anon_token_id) {
+  global $choices_table;
+  global $anon_tokens_table;
+
+  if ($handle === FALSE)
+    return FALSE;
+
+  $query = "SELECT c.choice, c.id FROM ";
+  $query .=  $choices_table . " c, " . $anon_tokens_table . " a";
+  $query .= " WHERE c.election_id = a.election_id";
+  $query .= "   AND a.id = " . $anon_token_id;
+  $query .= " ORDER BY c.id";
+
+  
+  $result = mysql_query ($query, $handle);
+
+  if (!$result) {
+    $retval = FALSE;
+  } else {
+    $result_array = array ();
+    while ($buffer = mysql_fetch_assoc ($result)) {
+      $result_array[] = $buffer;
+    }
+    $retval = $result_array;
+  }
+  return $retval;
+}
+
 function elec_verify_elections ($choices) {
   if ($choices === FALSE || count ($choices) <= 1)
     return FALSE;

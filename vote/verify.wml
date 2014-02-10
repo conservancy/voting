@@ -41,6 +41,14 @@ if (!$verify_token || $error) {
   echo "</form>\n";
 } else {
     $votes = elec_get_votes_for_anon_token ($handle, $anon_token_id);
+    $choices = elec_choices_get_by_anon_token_id($handle, $anon_token_id);
+    if ($choices === FALSE) {
+      $error .= "The ".htmlspecialchars(elec_election_get_type ($election))." is not properly set up.\n";
+    }
+    $choices_name = array ();
+    foreach ($choices as $choice) {
+      $choices_name[$choice["id"]] = $choice["choice"];
+    }
     echo "<tr class=\"".$class."\">\n";
     echo "<td><span class=\"token\">".htmlspecialchars($verify_token)."</span></td>\n";
     echo "<td>";
