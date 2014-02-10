@@ -4,6 +4,11 @@ div.error {
   color: red;
 }
 
+div#hdrNav {
+  background-color: #eee;
+  color: #000;
+}
+
 div.votedata {
   margin-left: 2em;
 }
