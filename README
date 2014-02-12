@@ -5,6 +5,8 @@ projects, I surveyed various Open Source and Free Software systems systems to
 handle online voting and elections.  I was mostly looking for something that
 implemented STV algorithm and ballot collection for the same.
 
+## What Open Source and Free Software Election / Voting / Vote Collection Systems Exist
+
 As it turns out, there are precious few Free Software voting systems.
 
   * [Selectricity](http://selectricity.org/) is a good option, but upon
