@@ -1,4 +1,4 @@
-# Why This Fork of GNOME Foundation's Voting System?
+# What's Conservancy Voting Software Repository For?
 
 When I was setting up Conservancy's ability to run elections for its member
 projects, I surveyed various Open Source and Free Software systems systems to
@@ -36,6 +36,8 @@ As it turns out, there are precious few Free Software voting systems.
     implemented their own little system to collect votes for
     their annual Directorship elections, using OpenSTV on the backend to
     count the votes.
+
+## Why This Fork of GNOME Foundation's Voting System?
 
 Since I needed STV specifically, this seemed like the best option (mainly
 because I didn't know about E-Vote when I started, I'd probably have used
