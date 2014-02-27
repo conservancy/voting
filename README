@@ -56,7 +56,7 @@ cherry-picking changes that are of use to both projects.
 
 Having spent 10-20 hours poking around this PHP code, I must frankly say that
 this isn't a well-designed system, and I don't really recommend it.  However,
-if you need to run a few elections, using this system, by following the
+if you need to run a few STV elections, using this system, by following the
 instructions below, might be your quickest way to get an election up and
 running.  (Note: the instructions herein are loosely based on
 [instructions available on the GNOME Foundation's wiki](https://wiki.gnome.org/MembershipCommittee/ElectionsHowTo),
