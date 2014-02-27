@@ -15,7 +15,7 @@ As it turns out, there are precious few Free Software voting systems.
     multiple winner elections.  So, if you want a preferential voting system
     with just one winner, Selectricity is probably the best choice.
 
-  * [Fedora's election system](https://github.com/fedora-infra/elections)'s
+  * [Fedora's election system](https://github.com/fedora-infra/elections)
     supports only [range voting](http://en.wikipedia.org/wiki/Range_voting).
 
   * Meanwhile, for various STV algorithms,
