@@ -31,6 +31,11 @@ As it turns out, there are precious few Free Software voting systems.
     relatively poorly documented and it was unclear upon initial evaluation
     if STV-style ballots were available.
 
+  * The Apache Software Foundation released
+    [Apache Steve](http://steve.apache.org/), which handles STV vote and
+    First-past-the-post ballot collection and appears to be email-centric in
+    its vote collection.
+
   * GNOME Foundation hacked together a system in the
     [GNOME Foundation website repository](https://git.gnome.org/browse/foundation-web/)
     implemented their own little system to collect votes for
