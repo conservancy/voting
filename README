@@ -208,5 +208,6 @@ Voters might complain that they haven't received their token.  Likely, it
 either went missing or the email address was wrongly noted in the
 database. In any case, you need to find the ID of the voter With the ID do
 something like:
+
     SELECT * FROM election_tmp_tokens WHERE election_id = 17 AND election_voter_id  = $ID;
 
