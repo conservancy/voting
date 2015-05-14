@@ -45,15 +45,6 @@
 	<div id="logo"><a href="{$root}/"><img src="https://www-old.gnome.org/img/spacer" alt="Home" /></a></div>
         <div id="banner"><img src="https://www-old.gnome.org/img/spacer" alt="" /></div>
 	<p class="none"></p>
-        <div id="hdrNav">
-	  <a href="https://www.gnome.org/about/">About GNOME</a> &middot;
-	  <a href="https://www.gnome.org/start/stable/">Download</a> &middot;
-	  <!--<a href="http://www.gnome.org/contribute/"><i>Get Involved!</i></a> &middot;-->
-	  <a href="https://www.gnome.org/">Users</a> &middot;
-	  <a href="https://developer.gnome.org/">Developers</a> &middot;
-	  <a href="https://foundation.gnome.org/"><b>Foundation</b></a> &middot;
-	  <a href="https://www.gnome.org/contact/">Contact</a>
-	</div>
       </div>
 
       <!-- Piwik -->
