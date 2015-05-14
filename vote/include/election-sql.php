@@ -476,7 +476,7 @@ function elec_get_votes_for_anon_token ($handle, $anon_token_id) {
   $escaped_anon_token_id = mysql_real_escape_string ($anon_token_id, $handle);
 
   $query = "SELECT choice_id,preference FROM " . $votes_table;
-  $query .= " WHERE anon_id = $anon_token_id";
+  $query .= " WHERE anon_id = $escaped_anon_token_id";
   /* -1 is not a valid value: it's the default value for referenda.
    * It's a blank vote. There was a bug that let this choice be saved in the
    * votes, but we don't need it there since we already have the anonymous
