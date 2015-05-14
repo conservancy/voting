@@ -205,7 +205,7 @@ function elec_choices_get_by_anon_token_id ($handle, $anon_token_id) {
   $query = "SELECT c.choice, c.id FROM ";
   $query .=  $choices_table . " c, " . $anon_tokens_table . " a";
   $query .= " WHERE c.election_id = a.election_id";
-  $query .= "   AND a.id = " . $anon_token_id;
+  $query .= "   AND a.id = " . intval($anon_token_id);
   $query .= " ORDER BY c.id";
 
   
