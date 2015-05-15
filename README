@@ -49,7 +49,9 @@ because I didn't know about E-Vote when I started, I'd probably have used
 E-Vote if I'd known about it before I started modifying the GNOME
 Foundation's code).  Thus, this project is a fork of GNOME's work, with
 *just* the voting stuff included.  Most of the GNOME-isms have been removed,
-although a few remain.
+although a few remain, and in some cases, GNOME-isms have merely been
+bulk-replaced with Conservancy-isms (which admittedly is "no help" from the
+point of view of non-Conservancy users).
 
 I've also offered patches back to the GNOME Foundation repository by
 cherry-picking changes that are of use to both projects.

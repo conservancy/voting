@@ -28,7 +28,7 @@
     <head xmlns="http://www.w3.org/1999/xhtml">
       <link rel="stylesheet" type="text/css" href="https://www-old.gnome.org/default.css" />
       <link rel="stylesheet" type="text/css" href="https://foundation-old.gnome.org/foundation.css" />
-      <link rel="icon" type="image/png" href="https://www-old.gnome.org/img/logo/foot-16.png" />
+      <link rel="shortcut icon" href="https://sfconservancy.org/favicon.ico" type="image/x-icon" />
       <xsl:copy-of select="@*" />
       <xsl:apply-templates select="node()" />
     </head>
